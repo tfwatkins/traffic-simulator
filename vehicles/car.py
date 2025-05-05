@@ -1,12 +1,8 @@
-# vehicles/car.py
-
 import pygame
-import math
+from math import hypot
 
-CELL_SIZE = 100
 CAR_WIDTH = 10
 CAR_LENGTH = 20
-QUEUE_GAP = 10  # Minimum pixel gap between cars
 
 class Car:
     def __init__(self, path, speed=2):
@@ -17,28 +13,40 @@ class Car:
 
     def update(self, city=None, cars=None, pixel_coords_func=None):
         if self.index >= len(self.path) - 1:
-            return  # Arrived
+            return  # Reached destination
 
         current_node = self.path[self.index]
         next_node = self.path[self.index + 1]
 
+        # Check light (only at segment start)
         if self.t == 0.0 and city:
-            if city.intersections[current_node].has_light and not city.intersections[current_node].is_green:
-                return  # Stop at red light
+            intersection = city.intersections[current_node]
+            if intersection.has_light and not intersection.is_green:
+                return  # Red light
 
-        # Queuing behavior
+        # Queuing: Check car ahead
         if cars and pixel_coords_func:
             my_pos = self.get_position(pixel_coords_func)
-            for lead in cars:
-                if lead is self:
-                    continue
-                if lead.index == self.index + 1:
-                    lead_pos = lead.get_position(pixel_coords_func)
-                    dist = math.hypot(my_pos[0] - lead_pos[0], my_pos[1] - lead_pos[1])
-                    if dist < CAR_LENGTH + QUEUE_GAP:
-                        return  # Too close to car ahead
+            next_pos = pixel_coords_func(next_node)
+            dir_x = next_pos[0] - my_pos[0]
+            dir_y = next_pos[1] - my_pos[1]
 
-        # Move toward the next node
+            axis = 'x' if abs(dir_x) > abs(dir_y) else 'y'
+            gap = CAR_LENGTH + 5
+
+            for other in cars:
+                if other is self:
+                    continue
+                other_pos = other.get_position(pixel_coords_func)
+
+                if axis == 'x' and abs(my_pos[1] - other_pos[1]) < CAR_WIDTH:
+                    if 0 < other_pos[0] - my_pos[0] < gap:
+                        return
+                elif axis == 'y' and abs(my_pos[0] - other_pos[0]) < CAR_WIDTH:
+                    if 0 < other_pos[1] - my_pos[1] < gap:
+                        return
+
+        # Move forward toward the next node
         self.t += self.speed * 0.02
         if self.t >= 1.0:
             self.t = 0.0
