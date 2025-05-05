@@ -1,0 +1,14 @@
+
+         Entry/Exit Grid (16x16)
+         +-------------------+
+         | o  o  o  o  o  o  |
+         | o     +     o     |   o = intersection (gray)
+         | o  +     +     o  |   + = traffic light (green/red)
+         | o     o     o  o  |
+         | o  o  o  o  o  o  |
+         +-------------------+
+
+ - Cars (rectangles) spawn at edges.
+ - Move along Dijkstra path to opposite side.
+ - Obey lights, form queues with pixel gaps.
+ - Query neighbors via quadtree to avoid overlap.

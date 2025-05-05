@@ -1,0 +1,28 @@
+DEMO WALKTHROUGH NOTES:
+
+1. **Start the Simulation**
+   - Run `test_graph.py`
+   - A 16x16 city grid will load with green/red/gray intersections and cars will begin spawning.
+
+2. **Observe Lights**
+   - Green: passable.
+   - Red: cars will queue.
+   - Gray: intersections with no light—cars proceed freely.
+
+3. **Watch Car Behavior**
+   - Cars spawn at the edges.
+   - They queue at red lights with a small buffer.
+   - If congestion is detected using a quadtree, cars may pause to avoid piling up.
+
+4. **Dynamic Flow**
+   - After several seconds, cars form realistic queues.
+   - Some intersections jam due to one-way traffic or simultaneous light blocks.
+
+5. **Highlight Features**
+   - Dijkstra's path selection.
+   - Queuing with pixel spacing.
+   - Collision prevention via quadtree queries.
+   - Visualization of urban flow and bottlenecks.
+
+6. **End the Demo**
+   - Close the pygame window to exit.
