@@ -1,13 +1,13 @@
 import pygame
 
-CELL_SIZE = 100
+CELL_SIZE = 50
 ROAD_WIDTH = 30
 INTERSECTION_RADIUS = 10
 CAR_WIDTH = 10
 CAR_LENGTH = 20
 
 class Visualizer:
-    def __init__(self, city, width=1600, height=1600):
+    def __init__(self, city, width=800, height=800):
         pygame.init()
         self.city = city
         self.screen = pygame.display.set_mode((width, height))

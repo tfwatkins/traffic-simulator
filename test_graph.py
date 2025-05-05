@@ -9,7 +9,7 @@ from utils.pathfinder import dijkstra_path
 from signals.controller import TrafficController
 from utils.quadtree import Quadtree
 
-WINDOW_SIZE = 1600
+WINDOW_SIZE = 800
 
 def main():
     grid_size = 16
