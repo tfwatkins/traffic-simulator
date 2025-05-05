@@ -5,6 +5,8 @@ class TrafficController:
         
     def update(self, tick):
         for intersection in self.city.intersections.values():
+            if not intersection.has_light:
+                continue  # No light at this intersection
             if tick - intersection.last_switch_tick >= self.cycle_interval:
                 intersection.is_green = not intersection.is_green
                 intersection.last_switch_tick = tick
