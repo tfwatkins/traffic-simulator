@@ -40,7 +40,7 @@ def main():
 
         # Move cars forward
         for car in city.cars:
-            car.update(city=city)
+            car.update(city=city, cars=city.cars, pixel_coords_func=visualizer.get_pixel_coords)
 
         # Render city and vehicles
         visualizer.render(city, tick)
