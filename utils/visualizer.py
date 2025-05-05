@@ -9,7 +9,7 @@ CAR_WIDTH = 10
 CAR_LENGTH = 20
 
 class Visualizer:
-    def __init__(self, city, width=800, height=800):
+    def __init__(self, city, width=1600, height=1600):
         pygame.init()
         self.city = city
         self.screen = pygame.display.set_mode((width, height))

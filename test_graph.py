@@ -11,7 +11,7 @@ from utils.pathfinder import dijkstra_path
 from signals.controller import TrafficController
 
 def main():
-    grid_size = 5
+    grid_size = 16
     city = CityGraph()
     city.load_grid(size=grid_size)
 
